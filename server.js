@@ -6,15 +6,21 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 
-const { PORT, CLIENT_ORIGIN, DATABASE_URL } = require('./config');
+const { PORT } = require('./config');
 const { dbConnect } = require('./db-mongoose');
-// const {dbConnect} = require('./db-knex');
+
 const {router: usersRouter} = require('./users/router');
 const {router: authRouter} = require('./auth/router');
+const {router: boxRouter} = require('./routes/boxes');
+const {router: vegetableRouter} = require('./routes/vegetables');
+
 const {localStrategy, jwtStrategy} = require('./auth/strategies');
 
 const app = express();
+
+app.use(bodyParser.json());
 
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -38,20 +44,20 @@ passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
+app.use('/api/box', boxRouter);
+app.use('/api/vegetable', vegetableRouter);
 
-const jwtAuth = passport.authenticate('jwt', { session: false });
-
-// A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
-    data: 'rosebud'
-  });
+app.use((err, req, res) => {
+  if (err.status) {
+    const errBody = Object.assign({}, err, { message: err.message });
+    res.status(err.status).json(errBody);
+  } else {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
-
-app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
-});
-
 
 
 function runServer(port = PORT) {
