@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const boxSchema = new mongoose.Schema({
   pickUpDate: {type: String, required: true},
-  vegetables: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
+  boxContents: [{type: mongoose.Schema.Types.ObjectId, ref: 'BoxContent', required: true}],
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
 });
 

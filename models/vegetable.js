@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const vegetableSchema = new mongoose.Schema({
   name: {type: String, required: true},
-  boxId: {type: mongoose.Schema.Types.ObjectId, ref: 'Box'}
 });
 
 vegetableSchema.index({name: 1, boxId: 1}, {unique: true});
