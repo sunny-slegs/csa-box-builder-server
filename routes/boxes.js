@@ -37,18 +37,26 @@ router.get('/:date', (req, res, next) => {
 router.post('/:date', (req, res, next) => {
   const {date} = req.params;
   const {userId} = req.user; 
-  const {boxContents} = req.body;
   
   const newBox = {
     pickUpDate: date,
     userId: mongoose.Types.ObjectId(userId)
   };
+  console.log(req.body);
+  const boxContents = req.body.boxContents.map(vegetable => {
+    return {
+      name: vegetable.name,
+      pickUpDate: vegetable.pickUpDate,
+      userId
+    };
+  });
+
   // console.log('you just created this box:', newBox);
   if (boxContents) {
-    boxContents.create(boxContents)
-      .then(res => {
-        console.log('you added box contents:', res.Vegetables);
-        return res.status(201).json(res);
+    BoxContents.create(boxContents)
+      .then(result => {
+        console.log('you added box contents:', res.body);
+        return res.status(201).json(result);
       })
       .catch(err => {
         next(err);
