@@ -37,60 +37,38 @@ router.get('/:date', (req, res, next) => {
 router.post('/:date', (req, res, next) => {
   const {date} = req.params;
   const {userId} = req.user; 
-  
   const newBox = {
     pickUpDate: date,
     userId: mongoose.Types.ObjectId(userId)
   };
-  console.log(req.body);
-  const boxContents = req.body.boxContents.map(vegetable => {
-    return {
-      name: vegetable.name,
-      pickUpDate: vegetable.pickUpDate,
-      userId
-    };
-  });
-
-  // console.log('you just created this box:', newBox);
-  if (boxContents) {
-    BoxContents.create(boxContents)
-      .then(result => {
-        console.log('you added box contents:', res.body);
-        return res.status(201).json(result);
-      })
-      .catch(err => {
-        next(err);
-      });
-  } else {
-    Box.create(newBox)
-      .then(result => {
-        (console.log('you made a new box', res.vegetables));
-        return res.status(201).json(result);
-      })
-      .catch(err => {
-        next(err);
-      });
-  }  
+ 
+  Box.create(newBox)
+    .then(result => {
+      (console.log('you made a new box', result.body));
+      return res.status(201).json(result);
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
-  
+router.put('/:date', (req, res, next) => {
+  const {date} = req.params;
+  const {userId} = req.user;
+  const {boxContents} = req.body;
 
-// router.put('/:date', (req, res, next) => {
-//   const {date} = req.params;
-//   const {userId} = req.user;
-//   const {vegetables} = req.body;
+  const updatedBox = {
+    boxContents
+  };
+  console.log(updatedBox, boxContents, 'that\'s the updated box contents');
 
-//   const updatedBox = {
-//     vegetables
-//   };
-
-//   Box.findOneAndUpdate({userId: userId, pickUpDate: date}, updatedBox, {new:true})
-//     .then(result => {
-//       return res.status(201).json(result);
-//     })
-//     .catch(err => {
-//       next(err);
-//     });
-// });
+  Box.findOneAndUpdate({userId: userId, pickUpDate: date}, updatedBox, {new:true})
+    .then(result => {
+      return res.status(201).json(result);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
 
 module.exports = {router};
