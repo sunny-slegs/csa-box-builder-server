@@ -37,52 +37,41 @@ router.get('/:date', (req, res, next) => {
 router.post('/:date', (req, res, next) => {
   const {date} = req.params;
   const {userId} = req.user; 
-  const {boxContents} = req.body;
-  
+
   const newBox = {
     pickUpDate: date,
     userId: mongoose.Types.ObjectId(userId)
   };
-  // console.log('you just created this box:', newBox);
-  if (boxContents) {
-    boxContents.create(boxContents)
-      .then(res => {
-        console.log('you added box contents:', res.Vegetables);
-        return res.status(201).json(res);
-      })
-      .catch(err => {
-        next(err);
-      });
-  } else {
-    Box.create(newBox)
-      .then(result => {
-        (console.log('you made a new box', res.vegetables));
-        return res.status(201).json(result);
-      })
-      .catch(err => {
-        next(err);
-      });
-  }  
+ 
+  Box.create(newBox)
+    .then(result => {
+      (console.log('you made a new box', result.body));
+      return res.status(201).json(result);
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
   
 
-// router.put('/:date', (req, res, next) => {
-//   const {date} = req.params;
-//   const {userId} = req.user;
-//   const {vegetables} = req.body;
+router.put('/:date', (req, res, next) => {
+  const {date} = req.params;
+  const {userId} = req.user;
+  const {boxContents} = req.body;
 
-//   const updatedBox = {
-//     vegetables
-//   };
+  const updatedBox = {
+    boxContents
+  };
+  console.log(updatedBox, boxContents, 'that\'s the updated box contents');
 
-//   Box.findOneAndUpdate({userId: userId, pickUpDate: date}, updatedBox, {new:true})
-//     .then(result => {
-//       return res.status(201).json(result);
-//     })
-//     .catch(err => {
-//       next(err);
-//     });
-// });
+  Box.findOneAndUpdate({userId: userId, pickUpDate: date}, updatedBox, {new:true})
+    .then(result => {
+      return res.status(201).json(result);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
 
 module.exports = {router};
