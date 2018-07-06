@@ -9,7 +9,7 @@ const boxSchema = new mongoose.Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
 });
 
-//boxSchema.index({pickUpDate: 1, userId: 1}, {unique: true});
+boxSchema.index({pickUpDate: 1, userId: 1}, {unique: true});
 
 boxSchema.set('toObject', {
   virtuals: true,

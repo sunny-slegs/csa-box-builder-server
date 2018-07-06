@@ -2,21 +2,12 @@
 
 // const mongoose = require('mongoose');
 
-<<<<<<< HEAD
-const boxContentSchema = new mongoose.Schema({
-  name: {type: String, required: true},
-  boxId: {type: mongoose.Schema.Types.ObjectId, ref: 'Box'},
-  pickUpDate: {type: String, required: true, ref: 'Box'},
-  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'Box', required: true}
-});
-=======
 // const boxContentSchema = new mongoose.Schema({
 //   name: {type: String, required: true},
 //   boxId: {type: mongoose.Schema.Types.ObjectId, ref: 'Box'},
 //   pickUpDate: {type: String, required: true, ref: 'Box'},
 //   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'Box', required: true}
 // });
->>>>>>> core-features
 
 // boxContentSchema.index({name: 1, boxId: 1}, {unique: true});
 
