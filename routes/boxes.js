@@ -1,7 +1,6 @@
 'use strict';
 const express = require('express');
 const passport = require('passport');
-let mongoose = require('mongoose');
 
 const Box = require('../models/box');
 //const Vegetable = require('../models/vegetable');
