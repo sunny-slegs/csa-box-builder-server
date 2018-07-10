@@ -16,7 +16,7 @@ router.use(passport.authenticate('jwt', {session: false, failWithError: true}));
 router.get('/:date', (req, res, next) => {
   const date = req.params.date;
   const userId = req.user.userId;
-  console.log('GETing box for userIdL ', userId, ' and date: ', date);
+  console.log('GETing box for userId: ', userId, ' and date: ', date);
   
   Box.findOne({pickUpDate: date, userId: userId})
     .then(result => {
