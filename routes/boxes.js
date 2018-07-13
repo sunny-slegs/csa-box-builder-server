@@ -3,8 +3,6 @@ const express = require('express');
 const passport = require('passport');
 
 const Box = require('../models/box');
-//const Vegetable = require('../models/vegetable');
-//const {availableVegetables} = require('../available-vegetables'); 
 
 const router = express.Router();
 
