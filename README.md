@@ -9,8 +9,7 @@ Enzyme/Jest
 JWT/bcryptjs/passport
 The CSA box builder is an app to enable a farm business to provide their customers with the opportunity to set preferences for each of their weekly shares. CSA stands for Community Supported Agriculture and is a way for cusotmers to provide the farmer with her preseason start up costs. In exchange for their investment, the customer gets a weekly share of the farm's produce. This app allows the customer to select what vegetables they would like to recieve each week.
 
-See the app here:
-
+See the app [here](https://csa-box-builder.now.sh/)  
 Use username 'demo' and password 'password88' to login.
 
 https://csa-box-builder.herokuapp.com/
