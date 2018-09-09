@@ -12,7 +12,7 @@ The CSA box builder is an app to enable a farm business to provide their custome
 See the app [here](https://csa-box-builder.now.sh/)  
 Use username 'demo' and password 'password88' to login.
 
-https://csa-box-builder.herokuapp.com/
+
 
 ![Login Page](./screen-shots/login.png)
 ![Dashboard](./screen-shots/dashboard.png)
